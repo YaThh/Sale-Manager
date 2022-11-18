@@ -1,0 +1,15 @@
+﻿@model IEnumerable<QLBH.Models.SanPham>
+    @using QLBH.Models
+<div class="row">
+    @foreach(var item in Model)
+    {
+        <div class="text-center col col-sm-3 col-lg-3 col-xs-3">
+            <h3>@item.TenSP</h3>
+            @Html.Image("../" + @item.HinhSP, "100", "120", "Image Error")
+            <br />
+            @String.Format("{0:0,###}", item.Dongia)
+            <br />
+            <a href="@Url.Action("Details","SanPham",new { id = item.MaSP })" class="btn btn-info">Xem chi tiết</a>
+        </div>
+    }
+</div>
