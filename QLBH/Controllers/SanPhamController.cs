@@ -7,7 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using QLBH.Models;
-
+using System.IO;
 namespace QLBH.Controllers
 {
     public class SanPhamController : Controller
@@ -48,10 +48,18 @@ namespace QLBH.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "MaSP,TenSP,Donvitinh,Dongia,MaLoaiSP,HinhSP")] SanPham sanPham)
+        public ActionResult Create([Bind(Include = "MaSP,TenSP,Donvitinh,Dongia,MaLoaiSP,HinhSP")] SanPham sanPham,
+            HttpPostedFileBase HinhSP)
         {
             if (ModelState.IsValid)
             {
+                if (HinhSP != null && HinhSP.ContentLength > 0)
+                {
+                    string filename = Path.GetFileName(HinhSP.FileName);
+                    string path = Server.MapPath("~/Images/" + filename);
+                    sanPham.HinhSP = "Images/" + filename;
+                    HinhSP.SaveAs(path);
+                } 
                 db.SanPhams.Add(sanPham);
                 db.SaveChanges();
                 return RedirectToAction("Index");

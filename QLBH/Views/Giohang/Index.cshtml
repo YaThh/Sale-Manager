@@ -52,6 +52,18 @@ else
                         <td>@Model.Sum(m => m.ThanhTien) VND</td>
                         <td></td>
                     </tr>
+                    <tr>
+                        <td colspan="6">
+                            <form action="@Url.Action("Order","Giohang")" method="get">
+                                Thông tin đặt hàng - Email: <input type="email" name="Email"/>
+                                - Điện thoại: <input type="text" name="Phone"/>
+                                <input type="submit" value="Đặt hàng" class="btn btn-success btn-sm" />
+                                <a class="btn btn-success btn-sm" href="@Url.Action("Index", "Home")">
+                                    Tiếp tục mua hàng
+                                </a>
+                            </form>
+                        </td>
+                    </tr>
                 </table>
             </div>
         </div>
